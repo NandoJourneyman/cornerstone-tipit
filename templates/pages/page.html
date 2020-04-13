@@ -1,23 +1,31 @@
 {{#partial "page"}}
 
-{{> components/common/breadcrumbs breadcrumbs=breadcrumbs}}
+{{#if page.title '!==' 'Home'}}
+    {{> components/common/breadcrumbs breadcrumbs=breadcrumbs}}
+{{/if}}
 
 <main class="page">
     {{#unless theme_settings.hide_page_heading }}
-        <h1 class="page-heading">{{ page.title }}</h1>
+        {{#if page.title '!==' 'Home'}}
+            <h1 class="page-heading">{{ page.title }}</h1>
+        {{/if}}
     {{/unless}}
 
     {{#if page.sub_pages}}
-    <nav class="navBar navBar--sub">
-        <ul class="navBar-section account-navigation">
-        {{#each page.sub_pages}}
-            <li class="navBar-item"><a class="navBar-action" href="{{url}}">{{title}}</a></li>
-        {{/each}}
-        </ul>
-    </nav>
+        {{#if page.title '!==' 'Home'}}
+            <nav class="navBar navBar--sub">
+                <ul class="navBar-section account-navigation">
+                {{#each page.sub_pages}}
+                    <li class="navBar-item"><a class="navBar-action" href="{{url}}">{{title}}</a></li>
+                {{/each}}
+                </ul>
+            </nav>
+        {{/if}}
     {{/if}}
 
-    {{{region name="page_builder_content"}}}
+    {{#if page.title '!==' 'Home'}}
+        {{{region name="page_builder_content"}}}
+    {{/if}}
 
     <div class="page-content page-content--centered">
         {{#replace '%%Syndicate%%' page.content}}
